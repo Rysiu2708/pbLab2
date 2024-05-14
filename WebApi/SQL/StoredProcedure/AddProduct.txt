@@ -1,0 +1,18 @@
+CREATE PROCEDURE AddProduct
+    @Name NVARCHAR(100),
+    @Price DECIMAL(18, 2),
+    @GroupId INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    IF @Price <= 0
+    BEGIN
+        RAISERROR('Price must be greater than 0.', 16, 1);
+        RETURN;
+    END
+
+    INSERT INTO Products (Name, Price, GroupId, IsActive)
+    VALUES (@Name, @Price, @GroupId, 1); 
+
+END
